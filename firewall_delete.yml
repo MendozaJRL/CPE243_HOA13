@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  become: True
+  tasks:
+
+    - name: block ip address in ubuntu
+      ufw:
+        rule: allow
+        proto: any
+        from_ip: 192.168.56.119
+
+    - block:
+
+      - name: checking firewall in ubuntu
+        shell: sudo ufw status
+        register: firewall_status
+      - debug:
+          msg="{{ firewall_status }}"
